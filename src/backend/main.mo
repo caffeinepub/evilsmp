@@ -9,6 +9,7 @@ import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
 import Nat "mo:core/Nat";
 import Int "mo:core/Int";
+import Set "mo:core/Set";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
@@ -42,6 +43,12 @@ actor {
     updatedAt : Time.Time;
   };
 
+  type Stats = {
+    visits : Nat;
+    registeredPlayers : Nat;
+    loggedInPlayers : Nat;
+  };
+
   module Rule {
     public func compare(rule1 : Rule, rule2 : Rule) : Order.Order {
       Nat.compare(rule1.id, rule2.id);
@@ -67,6 +74,42 @@ actor {
     current = 0;
     max = 100;
     updatedAt = Time.now();
+  };
+
+  // Analytics state
+  var visitCount : Nat = 0;
+  let registeredPlayers = Set.empty<Principal.Principal>();
+  let loggedInPlayers = Set.empty<Principal.Principal>();
+
+  // Record a page visit (anyone)
+  public func recordVisit() : async () {
+    visitCount += 1;
+  };
+
+  // Record a login (authenticated users)
+  public shared ({ caller }) func recordLogin() : async () {
+    if (caller.isAnonymous()) return;
+    loggedInPlayers.add(caller);
+  };
+
+  // Register a player (authenticated users)
+  public shared ({ caller }) func registerPlayer() : async () {
+    if (caller.isAnonymous()) {
+      Runtime.trap("Must be logged in to register");
+    };
+    registeredPlayers.add(caller);
+  };
+
+  // Get stats - admin only
+  public shared ({ caller }) func getStats() : async Stats {
+    if (not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Only admin can view stats");
+    };
+    {
+      visits = visitCount;
+      registeredPlayers = registeredPlayers.size();
+      loggedInPlayers = loggedInPlayers.size();
+    };
   };
 
   // Rule management - Owner only

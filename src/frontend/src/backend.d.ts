@@ -29,6 +29,11 @@ export interface OwnerProfile {
     contact: string;
     name: string;
 }
+export interface Stats {
+    visits: bigint;
+    registeredPlayers: bigint;
+    loggedInPlayers: bigint;
+}
 export enum UserRole {
     admin = "admin",
     user = "user",
@@ -44,7 +49,11 @@ export interface backendInterface {
     getCallerUserRole(): Promise<UserRole>;
     getOwnerProfile(): Promise<OwnerProfile | null>;
     getPlayerCount(): Promise<PlayerCount>;
+    getStats(): Promise<Stats>;
     isCallerAdmin(): Promise<boolean>;
+    recordLogin(): Promise<void>;
+    recordVisit(): Promise<void>;
+    registerPlayer(): Promise<void>;
     updateOwnerProfile(profile: OwnerProfile): Promise<void>;
     updatePlayerCount(current: bigint, max: bigint): Promise<void>;
     updateRule(id: bigint, content: string): Promise<void>;

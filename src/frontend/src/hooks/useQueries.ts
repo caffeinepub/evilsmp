@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { OwnerProfile } from "../backend.d";
+import type { OwnerProfile, Stats } from "../backend.d";
 import { useActor } from "./useActor";
 
 export function useGetAllRules() {
@@ -60,6 +60,39 @@ export function useIsCallerAdmin() {
       return actor.isCallerAdmin();
     },
     enabled: !!actor && !isFetching,
+  });
+}
+
+export function useGetStats() {
+  const { actor, isFetching } = useActor();
+  return useQuery<Stats | null>({
+    queryKey: ["stats"],
+    queryFn: async () => {
+      if (!actor) return null;
+      return (actor as any).getStats() as Promise<Stats>;
+    },
+    enabled: !!actor && !isFetching,
+    refetchInterval: 10000,
+  });
+}
+
+export function useRecordVisit() {
+  const { actor } = useActor();
+  return useMutation({
+    mutationFn: () => {
+      if (!actor) throw new Error("No actor");
+      return (actor as any).recordVisit() as Promise<void>;
+    },
+  });
+}
+
+export function useRecordLogin() {
+  const { actor } = useActor();
+  return useMutation({
+    mutationFn: () => {
+      if (!actor) throw new Error("No actor");
+      return (actor as any).recordLogin() as Promise<void>;
+    },
   });
 }
 

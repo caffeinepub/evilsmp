@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { Loader2, Pencil, Shield, Trash2 } from "lucide-react";
+import { Eye, Loader2, Pencil, Shield, Trash2, Users } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -23,13 +24,14 @@ import {
   useGetAllRules,
   useGetOwnerProfile,
   useGetPlayerCount,
+  useGetStats,
   useUpdateOwnerProfile,
   useUpdatePlayerCount,
   useUpdateRule,
 } from "../hooks/useQueries";
 
-export default function AdminPanel() {
-  const [open, setOpen] = useState(false);
+export default function AdminPanel({ autoOpen }: { autoOpen?: boolean } = {}) {
+  const [open, setOpen] = useState(autoOpen ?? false);
 
   return (
     <section className="py-12 px-4">
@@ -70,7 +72,7 @@ export default function AdminPanel() {
 function AdminTabs() {
   return (
     <Tabs defaultValue="rules">
-      <TabsList className="grid grid-cols-4 bg-muted">
+      <TabsList className="grid grid-cols-5 bg-muted">
         <TabsTrigger
           value="rules"
           className="font-pixel text-xs"
@@ -99,6 +101,13 @@ function AdminTabs() {
         >
           Owner
         </TabsTrigger>
+        <TabsTrigger
+          value="stats"
+          className="font-pixel text-xs"
+          data-ocid="admin.stats.tab"
+        >
+          Stats
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="rules">
         <RulesTab />
@@ -112,7 +121,71 @@ function AdminTabs() {
       <TabsContent value="owner">
         <OwnerTab />
       </TabsContent>
+      <TabsContent value="stats">
+        <StatsTab />
+      </TabsContent>
     </Tabs>
+  );
+}
+
+function StatsTab() {
+  const { data: stats, isLoading } = useGetStats();
+
+  const statCards = [
+    {
+      label: "TOTAL VISITS",
+      value: stats?.visits,
+      icon: <Eye size={20} className="text-primary" />,
+      color: "border-primary/30 bg-primary/5",
+    },
+    {
+      label: "REGISTERED PLAYERS",
+      value: stats?.registeredPlayers,
+      icon: <Users size={20} className="text-accent" />,
+      color: "border-accent/30 bg-accent/5",
+    },
+    {
+      label: "PLAYERS LOGGED IN",
+      value: stats?.loggedInPlayers,
+      icon: <Shield size={20} className="text-green-400" />,
+      color: "border-green-400/30 bg-green-400/5",
+    },
+  ];
+
+  return (
+    <div className="py-4 space-y-4" data-ocid="admin.stats.panel">
+      <Label className="font-pixel text-xs text-muted-foreground">
+        SERVER ANALYTICS
+      </Label>
+      <div className="grid grid-cols-1 gap-3">
+        {statCards.map((card) => (
+          <div
+            key={card.label}
+            className={`flex items-center gap-4 p-4 rounded border ${card.color}`}
+          >
+            <div className="shrink-0">{card.icon}</div>
+            <div className="flex-1">
+              <p className="font-pixel text-xs text-muted-foreground">
+                {card.label}
+              </p>
+              {isLoading || card.value === undefined ? (
+                <Skeleton
+                  className="h-7 w-16 mt-1"
+                  data-ocid="admin.stats.loading_state"
+                />
+              ) : (
+                <p className="text-2xl font-bold text-foreground mt-0.5">
+                  {card.value.toString()}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="text-xs text-muted-foreground text-center pt-1">
+        Auto-refreshes every 10 seconds
+      </p>
+    </div>
   );
 }
 

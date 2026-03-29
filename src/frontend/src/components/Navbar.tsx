@@ -20,10 +20,14 @@ export default function Navbar() {
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-pixel text-primary text-glow-green text-xs sm:text-sm tracking-wider"
+          className="flex items-center"
           data-ocid="nav.link"
         >
-          ☠ EVILSMP
+          <img
+            src="/assets/uploads/gemini_generated_image_fqga7sfqga7sfqga-019d3aaf-75a9-733c-bfef-3f4519d9424e-1.png"
+            alt="EVILSMP"
+            className="h-8 w-auto drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]"
+          />
         </button>
 
         {/* Desktop nav */}

@@ -59,12 +59,16 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <p className="font-pixel text-accent text-xs sm:text-sm mb-4 tracking-widest text-glow-purple animate-flicker">
+          <p className="font-pixel text-accent text-xs sm:text-sm mb-6 tracking-widest text-glow-purple animate-flicker">
             ☠ WELCOME TO ☠
           </p>
-          <h1 className="font-pixel text-primary text-glow-green text-3xl sm:text-5xl md:text-6xl mb-4 leading-tight tracking-wide">
-            EVILSMP
-          </h1>
+          <div className="flex justify-center mb-4">
+            <img
+              src="/assets/uploads/gemini_generated_image_fqga7sfqga7sfqga-019d3aaf-75a9-733c-bfef-3f4519d9424e-1.png"
+              alt="EVILSMP"
+              className="max-w-[500px] w-full h-auto drop-shadow-[0_0_20px_rgba(74,222,128,0.5)]"
+            />
+          </div>
           <p className="font-pixel text-muted-foreground text-xs sm:text-sm mb-10 tracking-widest">
             Enter if you dare...
           </p>
