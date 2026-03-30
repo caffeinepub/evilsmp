@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Copy, Server, Users, Wifi } from "lucide-react";
-import { motion } from "motion/react";
 import { toast } from "sonner";
 import { useGetPlayerCount } from "../hooks/useQueries";
 
@@ -26,12 +25,7 @@ export default function ServerInfoCard() {
   return (
     <section id="server-info" className="py-16 px-4">
       <div className="container mx-auto max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <h2
             className="text-xl sm:text-2xl font-bold text-center mb-2"
             style={{ color: "#f2f2f2" }}
@@ -192,7 +186,7 @@ export default function ServerInfoCard() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

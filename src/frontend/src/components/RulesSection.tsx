@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { useGetAllRules } from "../hooks/useQueries";
 
 const DEFAULT_RULES = [
@@ -20,12 +19,7 @@ export default function RulesSection() {
   return (
     <section id="rules" className="py-16 px-4">
       <div className="container mx-auto max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <h2
             className="text-xl sm:text-2xl font-bold text-center mb-2"
             style={{ color: "#f2f2f2" }}
@@ -58,14 +52,7 @@ export default function RulesSection() {
           ) : (
             <div className="space-y-3">
               {displayRules.map((rule, index) => (
-                <motion.div
-                  key={rule}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  data-ocid={`rules.item.${index + 1}`}
-                >
+                <div key={rule} data-ocid={`rules.item.${index + 1}`}>
                   <div
                     className="rounded-sm p-4 flex items-start gap-4 transition-all"
                     style={{
@@ -86,11 +73,11 @@ export default function RulesSection() {
                       {rule}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

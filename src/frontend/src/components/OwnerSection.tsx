@@ -1,5 +1,4 @@
 import { Crown } from "lucide-react";
-import { motion } from "motion/react";
 import { useGetOwnerProfile } from "../hooks/useQueries";
 
 export default function OwnerSection() {
@@ -11,12 +10,7 @@ export default function OwnerSection() {
   return (
     <section id="owner" className="py-16 px-4">
       <div className="container mx-auto max-w-2xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <h2
             className="text-xl sm:text-2xl font-bold text-center mb-10"
             style={{ color: "#f2f2f2" }}
@@ -103,7 +97,7 @@ export default function OwnerSection() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

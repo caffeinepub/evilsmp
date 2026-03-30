@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { useGetAllAnnouncements } from "../hooks/useQueries";
 
 function formatDate(timestamp: bigint): string {
@@ -16,12 +15,7 @@ export default function AnnouncementsSection() {
   return (
     <section id="announcements" className="py-16 px-4">
       <div className="container mx-auto max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div>
           <h2
             className="text-xl sm:text-2xl font-bold text-center mb-2"
             style={{ color: "#f2f2f2" }}
@@ -64,12 +58,8 @@ export default function AnnouncementsSection() {
           ) : (
             <div className="space-y-4">
               {announcements.map((ann, index) => (
-                <motion.div
+                <div
                   key={ann.title + ann.timestamp.toString()}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.08 }}
                   data-ocid={`announcements.item.${index + 1}`}
                 >
                   <div
@@ -102,11 +92,11 @@ export default function AnnouncementsSection() {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

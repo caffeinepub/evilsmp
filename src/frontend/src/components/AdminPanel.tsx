@@ -13,7 +13,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Eye, Loader2, Pencil, Shield, Trash2, Users } from "lucide-react";
-import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
 import {
@@ -36,11 +35,7 @@ export default function AdminPanel({ autoOpen }: { autoOpen?: boolean } = {}) {
   return (
     <section className="py-12 px-4">
       <div className="container mx-auto max-w-3xl text-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
+        <div>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button
@@ -63,7 +58,7 @@ export default function AdminPanel({ autoOpen }: { autoOpen?: boolean } = {}) {
               <AdminTabs />
             </DialogContent>
           </Dialog>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
