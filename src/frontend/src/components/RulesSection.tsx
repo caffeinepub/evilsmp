@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { useGetAllRules } from "../hooks/useQueries";
 
@@ -27,16 +26,31 @@ export default function RulesSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-pixel text-primary text-glow-green text-xl sm:text-2xl text-center mb-2">
-            ⚔ THE LAW ⚔
+          <h2
+            className="text-xl sm:text-2xl font-bold text-center mb-2"
+            style={{ color: "#f2f2f2" }}
+          >
+            ⚔{" "}
+            <span
+              style={{
+                background: "linear-gradient(to right, #f03070, #e03060)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              THE LAW
+            </span>{" "}
+            ⚔
           </h2>
-          <p className="text-center text-muted-foreground text-sm mb-10">
+          <p className="text-center text-sm mb-10" style={{ color: "#8a8080" }}>
             Break these rules, face the consequences.
           </p>
 
           {isLoading ? (
             <div
-              className="text-center text-muted-foreground font-pixel text-xs"
+              className="text-center text-sm"
+              style={{ color: "#8a8080" }}
               data-ocid="rules.loading_state"
             >
               Loading laws...
@@ -52,16 +66,26 @@ export default function RulesSection() {
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                   data-ocid={`rules.item.${index + 1}`}
                 >
-                  <Card className="bg-card border border-glow-green hover:border-primary/80 transition-all group">
-                    <CardContent className="p-4 flex items-start gap-4">
-                      <span className="font-pixel text-primary text-glow-green text-lg shrink-0 w-8 text-center">
-                        {index + 1}
-                      </span>
-                      <p className="text-foreground text-sm leading-relaxed">
-                        {rule}
-                      </p>
-                    </CardContent>
-                  </Card>
+                  <div
+                    className="rounded-sm p-4 flex items-start gap-4 transition-all"
+                    style={{
+                      backgroundColor: "#150909",
+                      border: "1px solid rgba(240,48,112,0.25)",
+                    }}
+                  >
+                    <span
+                      className="font-bold text-lg shrink-0 w-8 text-center"
+                      style={{ color: "#f03070" }}
+                    >
+                      {index + 1}
+                    </span>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "#f2f2f2" }}
+                    >
+                      {rule}
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>

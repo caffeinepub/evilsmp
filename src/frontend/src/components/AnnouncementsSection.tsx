@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { useGetAllAnnouncements } from "../hooks/useQueries";
 
@@ -23,16 +22,30 @@ export default function AnnouncementsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-pixel text-primary text-glow-green text-xl sm:text-2xl text-center mb-2">
-            📢 ANNOUNCEMENTS
+          <h2
+            className="text-xl sm:text-2xl font-bold text-center mb-2"
+            style={{ color: "#f2f2f2" }}
+          >
+            📢{" "}
+            <span
+              style={{
+                background: "linear-gradient(to right, #f03070, #e03060)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              ANNOUNCEMENTS
+            </span>
           </h2>
-          <p className="text-center text-muted-foreground text-sm mb-10">
+          <p className="text-center text-sm mb-10" style={{ color: "#8a8080" }}>
             Stay updated with the latest from EVILSMP.
           </p>
 
           {isLoading ? (
             <div
-              className="text-center text-muted-foreground font-pixel text-xs"
+              className="text-center text-sm"
+              style={{ color: "#8a8080" }}
               data-ocid="announcements.loading_state"
             >
               Loading...
@@ -42,7 +55,7 @@ export default function AnnouncementsSection() {
               className="text-center py-12"
               data-ocid="announcements.empty_state"
             >
-              <p className="font-pixel text-muted-foreground text-xs leading-relaxed">
+              <p className="text-sm" style={{ color: "#8a8080" }}>
                 No announcements yet.
                 <br />
                 Stay tuned...
@@ -59,23 +72,36 @@ export default function AnnouncementsSection() {
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                   data-ocid={`announcements.item.${index + 1}`}
                 >
-                  <Card className="bg-card border border-glow-purple">
-                    <CardHeader className="pb-2">
-                      <div className="flex items-start justify-between gap-4">
-                        <CardTitle className="text-sm font-pixel text-accent text-glow-purple">
-                          {ann.title}
-                        </CardTitle>
-                        <span className="text-muted-foreground text-xs shrink-0">
-                          {formatDate(ann.timestamp)}
-                        </span>
-                      </div>
-                    </CardHeader>
-                    <CardContent className="pt-0">
-                      <p className="text-foreground text-sm leading-relaxed">
+                  <div
+                    className="rounded-sm"
+                    style={{
+                      backgroundColor: "#150909",
+                      border: "1px solid rgba(220,60,80,0.3)",
+                    }}
+                  >
+                    <div className="p-4 pb-2 flex items-start justify-between gap-4">
+                      <p
+                        className="text-sm font-bold"
+                        style={{ color: "#dc3c50" }}
+                      >
+                        {ann.title}
+                      </p>
+                      <span
+                        className="text-xs shrink-0"
+                        style={{ color: "#8a8080" }}
+                      >
+                        {formatDate(ann.timestamp)}
+                      </span>
+                    </div>
+                    <div className="px-4 pb-4">
+                      <p
+                        className="text-sm leading-relaxed"
+                        style={{ color: "#f2f2f2" }}
+                      >
                         {ann.message}
                       </p>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>

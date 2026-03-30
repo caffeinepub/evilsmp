@@ -147,8 +147,8 @@ function StatsTab() {
     {
       label: "PLAYERS LOGGED IN",
       value: stats?.loggedInPlayers,
-      icon: <Shield size={20} className="text-green-400" />,
-      color: "border-green-400/30 bg-green-400/5",
+      icon: <Shield size={20} className="text-red-400" />,
+      color: "border-red-400/30 bg-red-400/5",
     },
   ];
 

@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" style="background:#0d0505">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -6,10 +6,17 @@
     <meta name="description" content="Join EVILSMP — the ultimate dark fantasy Minecraft survival server. PvP, chaos, and glory await." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <!-- Non-blocking font: page renders instantly, font loads after -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" /></noscript>
+    <style>
+      /* Guaranteed dark bg before ANY JS or CSS loads — prevents white/black flash */
+      html, body, #root { background-color: #0d0505 !important; min-height: 100vh; }
+      body { color: #f2f2f2; margin: 0; padding: 0; }
+    </style>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="background:#0d0505">
+    <div id="root" style="background:#0d0505;min-height:100vh"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

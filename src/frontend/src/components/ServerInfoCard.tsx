@@ -1,6 +1,4 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Copy, Server, Users, Wifi } from "lucide-react";
 import { motion } from "motion/react";
 import { toast } from "sonner";
@@ -8,6 +6,11 @@ import { useGetPlayerCount } from "../hooks/useQueries";
 
 const SERVER_IP = "EVILSMPPLAY.aternos.me";
 const SERVER_PORT = "28694";
+
+const cardStyle = {
+  backgroundColor: "#150909",
+  border: "1px solid rgba(240,48,112,0.3)",
+};
 
 export default function ServerInfoCard() {
   const { data: playerCount } = useGetPlayerCount();
@@ -29,105 +32,166 @@ export default function ServerInfoCard() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-pixel text-primary text-glow-green text-xl sm:text-2xl text-center mb-10">
-            ⚡ SERVER INFO
+          <h2
+            className="text-xl sm:text-2xl font-bold text-center mb-2"
+            style={{ color: "#f2f2f2" }}
+          >
+            SERVER{" "}
+            <span
+              style={{
+                background: "linear-gradient(to right, #f03070, #e03060)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              INFORMATION
+            </span>
           </h2>
+          <p className="text-center text-sm mb-10" style={{ color: "#8a8080" }}>
+            Everything you need to connect and play.
+          </p>
 
-          <Card className="bg-card border border-glow-green">
-            <CardContent className="p-6 sm:p-8">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {/* IP */}
-                <div className="space-y-2">
-                  <p className="font-pixel text-xs text-muted-foreground tracking-widest">
-                    SERVER IP
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <code className="text-primary font-mono text-sm flex-1 bg-muted/50 px-3 py-2 rounded border border-border">
-                      {SERVER_IP}
-                    </code>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => copy(SERVER_IP, "Server IP")}
-                      className="text-primary hover:bg-primary/10 shrink-0"
-                      data-ocid="server_info.copy_ip.button"
-                    >
-                      <Copy size={16} />
-                    </Button>
-                  </div>
+          <div className="rounded-lg p-6 sm:p-8" style={cardStyle}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* IP */}
+              <div className="space-y-2">
+                <p
+                  className="text-xs font-semibold tracking-widest uppercase"
+                  style={{ color: "#8a8080" }}
+                >
+                  Server IP
+                </p>
+                <div className="flex items-center gap-2">
+                  <code
+                    className="font-mono text-sm flex-1 px-3 py-2 rounded"
+                    style={{
+                      color: "#f03070",
+                      backgroundColor: "rgba(240,48,112,0.08)",
+                      border: "1px solid rgba(240,48,112,0.2)",
+                    }}
+                  >
+                    {SERVER_IP}
+                  </code>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => copy(SERVER_IP, "Server IP")}
+                    className="shrink-0 hover:bg-transparent"
+                    style={{ color: "#f03070" }}
+                    data-ocid="server_info.copy_ip.button"
+                  >
+                    <Copy size={16} />
+                  </Button>
                 </div>
+              </div>
 
-                {/* Port */}
-                <div className="space-y-2">
-                  <p className="font-pixel text-xs text-muted-foreground tracking-widest">
-                    PORT
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <code className="text-primary font-mono text-sm flex-1 bg-muted/50 px-3 py-2 rounded border border-border">
-                      {SERVER_PORT}
-                    </code>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => copy(SERVER_PORT, "Port")}
-                      className="text-primary hover:bg-primary/10 shrink-0"
-                      data-ocid="server_info.copy_port.button"
-                    >
-                      <Copy size={16} />
-                    </Button>
-                  </div>
+              {/* Port */}
+              <div className="space-y-2">
+                <p
+                  className="text-xs font-semibold tracking-widest uppercase"
+                  style={{ color: "#8a8080" }}
+                >
+                  Port
+                </p>
+                <div className="flex items-center gap-2">
+                  <code
+                    className="font-mono text-sm flex-1 px-3 py-2 rounded"
+                    style={{
+                      color: "#f03070",
+                      backgroundColor: "rgba(240,48,112,0.08)",
+                      border: "1px solid rgba(240,48,112,0.2)",
+                    }}
+                  >
+                    {SERVER_PORT}
+                  </code>
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    onClick={() => copy(SERVER_PORT, "Port")}
+                    className="shrink-0 hover:bg-transparent"
+                    style={{ color: "#f03070" }}
+                    data-ocid="server_info.copy_port.button"
+                  >
+                    <Copy size={16} />
+                  </Button>
                 </div>
+              </div>
 
-                {/* Version */}
-                <div className="space-y-2">
-                  <p className="font-pixel text-xs text-muted-foreground tracking-widest">
-                    VERSION
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Server size={16} className="text-accent" />
-                    <span className="text-foreground text-sm">
-                      Java Edition
-                    </span>
-                  </div>
+              {/* Version */}
+              <div className="space-y-2">
+                <p
+                  className="text-xs font-semibold tracking-widest uppercase"
+                  style={{ color: "#8a8080" }}
+                >
+                  Version
+                </p>
+                <div className="flex items-center gap-2">
+                  <Server size={16} style={{ color: "#dc3c50" }} />
+                  <span className="text-sm" style={{ color: "#f2f2f2" }}>
+                    Java Edition
+                  </span>
                 </div>
+              </div>
 
-                {/* Status */}
-                <div className="space-y-2">
-                  <p className="font-pixel text-xs text-muted-foreground tracking-widest">
-                    STATUS
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <Wifi size={16} className="text-primary" />
-                    <Badge className="bg-primary/20 text-primary border border-primary/60 glow-green-sm font-pixel text-xs">
-                      ● ONLINE
-                    </Badge>
-                  </div>
+              {/* Status */}
+              <div className="space-y-2">
+                <p
+                  className="text-xs font-semibold tracking-widest uppercase"
+                  style={{ color: "#8a8080" }}
+                >
+                  Status
+                </p>
+                <div className="flex items-center gap-2">
+                  <Wifi size={16} style={{ color: "#f03070" }} />
+                  <span
+                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-semibold"
+                    style={{
+                      backgroundColor: "rgba(240,48,112,0.15)",
+                      border: "1px solid rgba(240,48,112,0.4)",
+                      color: "#f03070",
+                    }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+                    ONLINE
+                  </span>
                 </div>
+              </div>
 
-                {/* Players */}
-                <div className="space-y-2 sm:col-span-2">
-                  <p className="font-pixel text-xs text-muted-foreground tracking-widest">
-                    PLAYERS ONLINE
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <Users size={16} className="text-accent" />
-                    <span className="font-pixel text-lg text-primary text-glow-green">
-                      {current}
-                      <span className="text-muted-foreground"> / {max}</span>
-                    </span>
-                    <div className="flex-1 bg-muted rounded-full h-2 max-w-48">
-                      <div
-                        className="h-2 rounded-full bg-primary glow-green-sm transition-all"
-                        style={{
-                          width: `${max > 0 ? (current / max) * 100 : 0}%`,
-                        }}
-                      />
-                    </div>
+              {/* Players */}
+              <div className="space-y-2 sm:col-span-2">
+                <p
+                  className="text-xs font-semibold tracking-widest uppercase"
+                  style={{ color: "#8a8080" }}
+                >
+                  Players Online
+                </p>
+                <div className="flex items-center gap-3">
+                  <Users size={16} style={{ color: "#dc3c50" }} />
+                  <span
+                    className="text-lg font-bold"
+                    style={{ color: "#f03070" }}
+                  >
+                    {current}
+                    <span style={{ color: "#8a8080" }}> / {max}</span>
+                  </span>
+                  <div
+                    className="flex-1 rounded-full h-2 max-w-48"
+                    style={{ backgroundColor: "rgba(240,48,112,0.15)" }}
+                  >
+                    <div
+                      className="h-2 rounded-full transition-all"
+                      style={{
+                        width: `${max > 0 ? (current / max) * 100 : 0}%`,
+                        background:
+                          "linear-gradient(to right, #f03070, #e03060)",
+                      }}
+                    />
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

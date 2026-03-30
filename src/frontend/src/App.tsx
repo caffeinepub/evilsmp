@@ -17,6 +17,19 @@ import { useIsCallerAdmin } from "./hooks/useQueries";
 
 const queryClient = new QueryClient();
 
+// Fallback styles for browsers without OKLCH support (older Android)
+const pageFallbackStyle = {
+  backgroundColor: "#120808",
+  minHeight: "100vh",
+  color: "#ede8e8",
+};
+
+const toastStyle = {
+  background: "#2e1a1a",
+  border: "1px solid rgba(220,20,20,0.5)",
+  color: "#ede8e8",
+};
+
 function AdminDirectPage() {
   const { data: isAdmin } = useIsCallerAdmin();
   const { login, isLoggingIn, identity } = useInternetIdentity();
@@ -30,7 +43,10 @@ function AdminDirectPage() {
   }, [actor, isFetching, identity]);
 
   return (
-    <div className="min-h-screen bg-background stone-bg flex flex-col">
+    <div
+      className="min-h-screen bg-background stone-bg flex flex-col"
+      style={pageFallbackStyle}
+    >
       <div className="fixed inset-0 scanline pointer-events-none z-50" />
       <Navbar />
       <main className="flex-1 flex flex-col items-center justify-center py-16 px-4">
@@ -69,16 +85,7 @@ function AdminDirectPage() {
         )}
       </main>
       <Footer />
-      <Toaster
-        theme="dark"
-        toastOptions={{
-          style: {
-            background: "oklch(0.13 0.008 260)",
-            border: "1px solid oklch(0.87 0.29 142 / 0.5)",
-            color: "oklch(0.92 0.008 140)",
-          },
-        }}
-      />
+      <Toaster theme="dark" toastOptions={{ style: toastStyle }} />
     </div>
   );
 }
@@ -114,7 +121,10 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background stone-bg">
+    <div
+      className="min-h-screen bg-background stone-bg"
+      style={pageFallbackStyle}
+    >
       <div className="fixed inset-0 scanline pointer-events-none z-50" />
       <Navbar />
       <main>
@@ -126,16 +136,7 @@ function AppContent() {
         {isAdmin && <AdminPanel />}
       </main>
       <Footer />
-      <Toaster
-        theme="dark"
-        toastOptions={{
-          style: {
-            background: "oklch(0.13 0.008 260)",
-            border: "1px solid oklch(0.87 0.29 142 / 0.5)",
-            color: "oklch(0.92 0.008 140)",
-          },
-        }}
-      />
+      <Toaster theme="dark" toastOptions={{ style: toastStyle }} />
     </div>
   );
 }
